@@ -79,7 +79,7 @@ class AuthApiController extends Controller
                 $amount = $userItem->$type + intval($plus[1]);
             }elseif(Str::startsWith($json['amount'], '-')){
                 $minus = explode('-',$json['amount']);
-                $amount = $userItem->$type + intval($minus[1]);
+                $amount = $userItem->$type - intval($minus[1]);
             }
             User::where('email',$json['email'])->update([
                 $json['type'] => $amount
