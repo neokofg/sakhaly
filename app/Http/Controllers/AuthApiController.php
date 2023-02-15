@@ -19,7 +19,6 @@ class AuthApiController extends Controller
         ]);
         if ($validateFields->fails()) {
             return response()->json([
-                'status' => false,
                 'message' => 'error',
                 'errors' => $validateFields->errors()
             ], 401);
