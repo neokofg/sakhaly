@@ -72,16 +72,18 @@ class AuthApiController extends Controller
         }
         $user = User::where('email',$json['email'])->get();
         $type = $json['type'];
-        if(\Illuminate\Support\Str::startsWith($json['amount'], '+')){
-            $plus = explode('+',$json['amount']);
-            $amount = $user->$type + intval($plus[1]);
-        }else{
-            $minus = explode('-',$json['amount']);
-            $amount = $user->$type + intval($minus[1]);
+        foreach($user as $userItem){
+            if(\Illuminate\Support\Str::startsWith($json['amount'], '+')){
+                $plus = explode('+',$json['amount']);
+                $amount = $userItem->$type + intval($plus[1]);
+            }else{
+                $minus = explode('-',$json['amount']);
+                $amount = $userItem->$type + intval($minus[1]);
+            }
+            User::where('email',$json['email'])->update([
+                $json['type'] => $amount
+            ]);
+            return 'success!';
         }
-        User::where('email',$json['email'])->update([
-           $json['type'] => $amount
-        ]);
-        return 'success!';
     }
 }
