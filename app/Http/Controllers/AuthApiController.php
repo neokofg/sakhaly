@@ -50,7 +50,9 @@ class AuthApiController extends Controller
             $user = User::where('email',$formFields['email'])->get();
             return json_encode($user[0]);
         }
-        return 'error';
+        return response()->json([
+            'error' => 'error'
+        ], 401);
     }
     protected function getAllUsers(){
         $user = User::get('email');
