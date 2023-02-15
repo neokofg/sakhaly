@@ -53,7 +53,7 @@ class AuthApiController extends Controller
         return 'error';
     }
     protected function getAllUsers(){
-        $user = User::get();
+        $user = User::get('email');
         return json_encode($user);
     }
 }
