@@ -23,7 +23,7 @@ class AuthApiController extends Controller
             'password' => Hash::make($json['password'])
         ]);
         if($user){
-            return 'success!';
+            return json_encode($user[0]);
         }
         return 'Произошла ошибка!';
     }
