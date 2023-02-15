@@ -84,7 +84,7 @@ class AuthApiController extends Controller
             User::where('email',$json['email'])->update([
                 $json['type'] => $amount
             ]);
-            return 'success!';
+            return response('success',200);
         }
     }
 }
