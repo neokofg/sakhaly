@@ -39,7 +39,7 @@ class AuthApiController extends Controller
         );
         if(Auth::attempt($formFields)){
             $user = User::where('email',$formFields['email'])->get();
-            return json_encode($user);
+            return json_encode($user[0]);
         }
         return 'Не удалось авторизироваться!';
     }
