@@ -27,4 +27,16 @@ class AuthApiController extends Controller
         }
         return 'Произошла ошибка!';
     }
+    protected function loginUser($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        $formFields = $json->only(['email', 'password']);
+        if(Auth::attempt($formFields)){
+            return 'success!';
+        }
+        return 'Не удалось авторизироваться!';
+    }
 }

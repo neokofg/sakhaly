@@ -17,3 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/user/{json}',[\App\Http\Controllers\AuthApiController::class, 'registerUser']);
+Route::get('/login/{json}',[\App\Http\Controllers\AuthApiController::class, 'loginUser']);
