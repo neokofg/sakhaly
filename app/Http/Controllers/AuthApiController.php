@@ -23,7 +23,8 @@ class AuthApiController extends Controller
             'password' => Hash::make($json['password'])
         ]);
         if($user){
-            return json_encode($user[0]);
+            $createdUser = User::where('email',$json['email'])->get();
+            return json_encode($createdUser[0]);
         }
         return 'Произошла ошибка!';
     }
