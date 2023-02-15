@@ -33,7 +33,10 @@ class AuthApiController extends Controller
             'email' => 'required',
             'password' => 'required'
         ]);
-        $formFields = $json->only(['email', 'password']);
+        $formFields = array(
+            'email' => $json['email'],
+            'password' => $json['password']
+        );
         if(Auth::attempt($formFields)){
             return 'success!';
         }
