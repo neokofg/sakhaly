@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('nick');
             $table->string('email')->unique();
             $table->string('password');
+            $table->integer('xp')->default(0);
+            $table->string('level')->default(0);
+            $table->string('coins')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
