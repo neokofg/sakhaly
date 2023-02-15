@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class AuthApiController extends Controller
 {
@@ -73,7 +72,7 @@ class AuthApiController extends Controller
         }
         $user = User::where('email',$json['email'])->get();
         $type = $json['type'];
-        if(startsWith($json['amount'], '+')){
+        if(\Illuminate\Support\Str::startsWith($json['amount'], '+')){
             $plus = explode('+',$json['amount']);
             $amount = $user->$type + intval($plus[1]);
         }else{
