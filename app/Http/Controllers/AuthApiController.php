@@ -18,7 +18,7 @@ class AuthApiController extends Controller
             'password' => 'required|min:6'
         ]);
         if ($validateFields->fails()) {
-            return 'error:'$validateFields->errors();
+            return 'error:'.$validateFields->errors();
         }
         $user = User::create([
             'nick' => $json['nick'],
