@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class AuthApiController extends Controller
 {
     protected function registerUser($json){
-        $json = json_decode($json);
+        $json = json_decode($json,true);
         $validateFields = $json->validate([
             'nick' => 'required',
             'email' => 'required|unique:users',
