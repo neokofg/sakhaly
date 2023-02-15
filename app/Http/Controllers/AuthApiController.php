@@ -58,4 +58,22 @@ class AuthApiController extends Controller
         $user = User::get('email');
         return json_encode($user);
     }
+    protected function updateUser($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'email' => 'required',
+            'type' => 'required',
+            'amount' => 'required|starts_with:+,-'
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $user = User::where('email',$json['email'])->get();
+        $amount = $user->$json['type'].$json['amount'];
+        User::where('email',$json['email'])->update([
+           $json['type'] => $amount
+        ]);
+    }
 }
