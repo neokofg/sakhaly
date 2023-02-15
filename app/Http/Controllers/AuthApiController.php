@@ -19,8 +19,7 @@ class AuthApiController extends Controller
         ]);
         if ($validateFields->fails()) {
             return response()->json([
-                'message' => 'error',
-                'errors' => $validateFields->errors()
+                'error' => $validateFields->errors()
             ], 401);
         }
         $user = User::create([
