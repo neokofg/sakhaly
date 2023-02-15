@@ -26,7 +26,7 @@ class AuthApiController extends Controller
             $createdUser = User::where('email',$json['email'])->get();
             return json_encode($createdUser[0]);
         }
-        return 'Произошла ошибка!';
+        return 'error';
     }
     protected function loginUser($json){
         $json = json_decode($json,true);
@@ -42,6 +42,6 @@ class AuthApiController extends Controller
             $user = User::where('email',$formFields['email'])->get();
             return json_encode($user[0]);
         }
-        return 'Не удалось авторизироваться!';
+        return 'error';
     }
 }
