@@ -38,7 +38,8 @@ class AuthApiController extends Controller
             'password' => $json['password']
         );
         if(Auth::attempt($formFields)){
-            return 'success!';
+            $user = User::where('email',$formFields['email'])->get();
+            return json_encode($user);
         }
         return 'Не удалось авторизироваться!';
     }
