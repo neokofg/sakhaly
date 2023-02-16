@@ -114,7 +114,7 @@ class RoomApiController extends Controller
             $decodedUsersForUpdate = $decodedUsersForUpdate[0];
             if(array_key_exists(strval($user_id), $decodedUsersForUpdate)){
                 $key = array_search($user_id, $decodedUsersForUpdate);
-                unset($decodedUsersForUpdate[$key]);
+                unset($decodedUsers[$key]);
             }else{
                 return response()->json([
                     'error' => 'User doesn"t exists!'
