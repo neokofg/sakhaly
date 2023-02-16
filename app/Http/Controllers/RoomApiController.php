@@ -73,20 +73,36 @@ class RoomApiController extends Controller
                     'error' => 'User already exists!'
                 ], 401);
             }else{
-                $i = 1;
-                $answers = array();
-                while($i <= $answersCount){
-                    $answers += [strval($i) => 0];
-                    $i++;
+                if($roomItem->users == '{"users":{}}'){
+                    $i = 1;
+                    $answers = array();
+                    while($i <= $answersCount){
+                        $answers += [strval($i) => 0];
+                        $i++;
+                    }
+                    print_r($answers);
+                    $decodedUsers['users'] = array(
+                        $user_id => array(
+                            'answers' => $answers,
+                            'balls' => 0
+                        )
+                    );
+                }else{
+                    $i = 1;
+                    $answers = array();
+                    while($i <= $answersCount){
+                        $answers += [strval($i) => 0];
+                        $i++;
+                    }
+                    print_r($answers);
+                    $userArray = array(
+                        $user_id => array(
+                            'answers' => $answers,
+                            'balls' => 0
+                        )
+                    );
+                    array_push($decodedUsers['users'],$userArray);
                 }
-                print_r($answers);
-                $userArray = array(
-                    $user_id => array(
-                        'answers' => $answers,
-                        'balls' => 0
-                    )
-                );
-                array_push($decodedUsers['users'],$userArray);
             }
         }
         Room::where('room_code',$json['room_code'])->update([
