@@ -75,7 +75,7 @@ class RoomApiController extends Controller
             }else{
                 $i = 0;
                 $answers = array();
-                while($i == $answersCount){
+                while($i >= $answersCount){
                     array_push($answers, [$i => 0]);
                     print_r($answers);
                     $i++;
