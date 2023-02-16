@@ -81,7 +81,7 @@ class RoomApiController extends Controller
                 }
                 $userArray = array(
                     $user_id => array(
-                        $answers,
+                        'answers' => $answers,
                         'balls' => 0
                     )
                 );
