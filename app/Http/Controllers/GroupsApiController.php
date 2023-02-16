@@ -29,7 +29,7 @@ class GroupsApiController extends Controller
         ]);
         if($group){
             $groupInfo = Group::where('id',$group->id)->get();
-            return response(json_encode($groupInfo),200);
+            return response(json_encode($groupInfo[0]),200);
         }
     }
 }
