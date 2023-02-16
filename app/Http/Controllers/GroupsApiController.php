@@ -12,7 +12,7 @@ class GroupsApiController extends Controller
         $json = json_decode($json,true);
         $validateFields = Validator::make($json, [
             'name' => 'required',
-            'teacher_id' => 'required',
+            'teacher_id' => 'required|unique:groups',
         ]);
         if ($validateFields->fails()) {
             return response()->json([
