@@ -20,3 +20,4 @@ Route::get('/user/{json}',[\App\Http\Controllers\AuthApiController::class, 'regi
 Route::get('/login/{json}',[\App\Http\Controllers\AuthApiController::class, 'loginUser']);
 Route::get('/allUsers',[\App\Http\Controllers\AuthApiController::class,'getAllUsers']);
 Route::get('/updateUser/{json}',[\App\Http\Controllers\AuthApiController::class,'updateUser']);
+
