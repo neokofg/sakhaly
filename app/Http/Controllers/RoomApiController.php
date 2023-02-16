@@ -112,7 +112,7 @@ class RoomApiController extends Controller
             $decodedUsers = json_decode($roomItem->users,true);
             $decodedUsers = $decodedUsers['users'];
             $decodedUsers = $decodedUsers['0'];
-            if(in_array(strval($user_id), $decodedUsers)){
+            if(array_key_exists(strval($user_id), $decodedUsers)){
                 $key = array_search($user_id, $decodedUsers);
                 unset($decodedUsers[$key]);
             }else{
