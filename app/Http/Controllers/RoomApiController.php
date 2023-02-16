@@ -16,12 +16,20 @@ class RoomApiController extends Controller
         $teacher_id = $json['teacher_id'];
         $exercise = $json['exercise'];
         $roomCode = self::quickRandom();
-        print($roomCode);
+        $status = 'wait';
         if ($validateFields->fails()) {
             return response()->json([
                 'error' => $validateFields->errors()
             ], 401);
         }
+        $room = Room::create([
+            'teacher_id' => $teacher_id,
+            'exercise' => $exercise,
+            'room_code' => $roomCode,
+            'status' => $status
+        ]);
+        $roomUpdate = Room::where('id', $room->id)->get();
+        return response(json_encode($roomUpdate[0]),200);
     }
     public static function quickRandom($length = 5)
     {
