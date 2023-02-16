@@ -83,7 +83,7 @@ class RoomApiController extends Controller
                     }
                     print_r($answers);
                     $decodedUsers['users'] = array(
-                        $user_id => array(
+                        strval($user_id) => array(
                             'answers' => $answers,
                             'balls' => 0
                         )
@@ -99,7 +99,7 @@ class RoomApiController extends Controller
                     $user = User::where('id',$user_id)->get();
                     foreach($user as $userItem){
                         $userArray = array(
-                            $user_id => array(
+                            strval($user_id) => array(
                                 'answers' => $answers,
                                 'balls' => 0,
                                 'name' => $userItem->nick
