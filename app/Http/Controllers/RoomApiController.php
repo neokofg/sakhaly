@@ -110,11 +110,9 @@ class RoomApiController extends Controller
         $user_id = $json['user_id'];
         foreach($room as $roomItem){
             $decodedUsers = json_decode($roomItem->users,true);
-            $decodedUsersForUpdate = $decodedUsers['users'];
-            $decodedUsersForUpdate = $decodedUsersForUpdate[0];
-            if(array_key_exists(strval($user_id), $decodedUsersForUpdate)){
-                $key = array_search($user_id, $decodedUsersForUpdate);
-                unset($decodedUsers[$key]);
+            if(array_key_exists(strval($user_id), $decodedUsers['users'][0])){
+                $key = array_search($user_id, $decodedUsers['users'][0]);
+                unset($decodedUsers['users'][0][$key]);
             }else{
                 return response()->json([
                     'error' => 'User doesn"t exists!'
