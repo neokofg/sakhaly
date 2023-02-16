@@ -48,12 +48,13 @@ class GroupsApiController extends Controller
         $group = Group::where('id',$group_id)->get();
         foreach($group as $groupItem){
             $decodedUsers = json_decode($groupItem->users,true);
-            if(array_search(intval($user_id), $decodedUsers['users'])){
+            if(in_array(intval($user_id), $decodedUsers['users'])){
                 return response()->json([
                     'error' => 'User already exists!'
                 ], 401);
+            }else{
+                array_push($decodedUsers['users'],intval($user_id));
             }
-            array_push($decodedUsers['users'],intval($user_id));
         }
         Group::where('id',$group_id)->update([
             'users' => json_encode($decodedUsers)
