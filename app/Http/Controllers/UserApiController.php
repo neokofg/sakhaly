@@ -65,6 +65,8 @@ class UserApiController extends Controller
                 User::where('id',$user_id)->update([
                    'stats' => json_encode($stats)
                 ]);
+                $findUser = User::where('id',$user_id)->get();
+                return response(json_encode($findUser[0]),200);
             }else{
                 if (isset($decodedStats[$realTime])) {
                     $xpNow = $decodedStats[$realTime]['xp'];
@@ -78,6 +80,8 @@ class UserApiController extends Controller
                     User::where('id',$user_id)->update([
                         'stats' => json_encode($decodedStats)
                     ]);
+                    $findUser = User::where('id',$user_id)->get();
+                    return response(json_encode($findUser[0]),200);
                 }else{
                     $stats = array(
                         $realTime => array(
@@ -88,6 +92,8 @@ class UserApiController extends Controller
                     User::where('id',$user_id)->update([
                         'stats' => json_encode($result)
                     ]);
+                    $findUser = User::where('id',$user_id)->get();
+                    return response(json_encode($findUser[0]),200);
                 }
             }
         }
