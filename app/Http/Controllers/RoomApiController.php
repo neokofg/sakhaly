@@ -65,11 +65,19 @@ class RoomApiController extends Controller
                     'error' => 'User already exists!'
                 ], 401);
             }else{
-                array_push($decodedUsers['users'],intval($user_id));
+                $userArray = array(
+                    $user_id => array(
+                        'answers' => array(
+                            "1" => 0
+                        ),
+                        'balls' => 0
+                    )
+                );
+                $result = array_merge($decodedUsers['users'],$userArray);
             }
         }
         Room::where('room_code',$json['room_code'])->update([
-            'users' => json_encode($decodedUsers)
+            'users' => json_encode($result)
         ]);
         $roomUpdate = Room::where('room_code',$json['room_code'])->get();
         return response(json_encode($roomUpdate[0]),200);
