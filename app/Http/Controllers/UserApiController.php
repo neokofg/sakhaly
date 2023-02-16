@@ -52,8 +52,7 @@ class UserApiController extends Controller
         $user_id = $json['user_id'];
         $type = $json['type'];
         $amount = $json['amount'];
-//        $realTime = date("Y-m-d");
-        $realTime = "2022-02-17";
+        $realTime = date("Y-m-d");
         $user = User::where('id',$user_id)->get();
         foreach($user as $userItem){
             $decodedStats = json_decode($userItem->stats,true);
