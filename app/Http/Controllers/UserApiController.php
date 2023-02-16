@@ -55,7 +55,7 @@ class UserApiController extends Controller
         $user = User::where('id',$user_id)->get();
         foreach($user as $userItem){
             $decodedStats = json_decode($userItem->stats,true);
-            if (array_key_exists($realTime, $decodedStats)) {
+            if (!isset($decodedStats[$realTime])) {
                 print_r($decodedStats);
             }
             print_r($decodedStats);
