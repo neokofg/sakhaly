@@ -17,7 +17,6 @@ class RoomApiController extends Controller
         $teacher_id = $json['teacher_id'];
         $exercise = $json['exercise'];
         $roomCode = self::quickRandom();
-        $status = 'wait';
         if ($validateFields->fails()) {
             return response()->json([
                 'error' => $validateFields->errors()
@@ -27,7 +26,7 @@ class RoomApiController extends Controller
             'teacher_id' => $teacher_id,
             'exercise' => $exercise,
             'room_code' => $roomCode,
-            'status' => $status
+            'status' => 'wait'
         ]);
         $roomUpdate = Room::where('id', $room->id)->get();
         return response(json_encode($roomUpdate[0]),200);
