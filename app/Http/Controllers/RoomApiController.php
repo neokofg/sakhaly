@@ -13,10 +13,20 @@ class RoomApiController extends Controller
             'teacher_id' => 'required|exists:users,id',
             'exercise' => 'required'
         ]);
+        $teacher_id = $json['teacher_id'];
+        $exercise = $json['exercise'];
+        $roomCode = self::quickRandom();
+        print($roomCode);
         if ($validateFields->fails()) {
             return response()->json([
                 'error' => $validateFields->errors()
             ], 401);
         }
+    }
+    public static function quickRandom($length = 5)
+    {
+        $pool = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
     }
 }
