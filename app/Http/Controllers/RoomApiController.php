@@ -41,6 +41,7 @@ class RoomApiController extends Controller
                 ]);
             }
         }
+        $roomUpdate = Room::where('id', $room->id)->get();
         return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE |JSON_UNESCAPED_SLASHES),200);
     }
     public static function quickRandom($length = 5)
