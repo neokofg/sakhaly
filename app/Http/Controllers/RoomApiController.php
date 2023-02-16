@@ -102,7 +102,7 @@ class RoomApiController extends Controller
                             $user_id => array(
                                 'answers' => $answers,
                                 'balls' => 0,
-                                'name' => $userItem->name
+                                'name' => $userItem->nick
                         )
                         );
                     }
