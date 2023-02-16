@@ -71,6 +71,8 @@ class RoomApiController extends Controller
         Room::where('room_code',$json['room_code'])->update([
             'users' => json_encode($decodedUsers)
         ]);
+        $roomUpdate = Room::where('room_code',$json['room_code'])->get();
+        return response(json_encode($roomUpdate[0]),200);
     }
     protected function leaveRoom($json){
         $json = json_decode($json,true);
@@ -99,5 +101,6 @@ class RoomApiController extends Controller
         Room::where('room_code',$json['room_code'])->update([
             'users' => json_encode($decodedUsers)
         ]);
+        return response(json_encode($roomUpdate[0]),200);
     }
 }
