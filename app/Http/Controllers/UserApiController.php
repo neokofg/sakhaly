@@ -63,10 +63,10 @@ class UserApiController extends Controller
                   )
                 );
                 User::where('id',$user_id)->update([
-                   'stats' => json_encode($stats)
+                   'stats' => json_encode($stats,JSON_UNESCAPED_UNICODE)
                 ]);
                 $findUser = User::where('id',$user_id)->get();
-                return response(json_encode($findUser[0]),200);
+                return response(json_encode($findUser[0],JSON_UNESCAPED_UNICODE),200);
             }else{
                 if (isset($decodedStats[$realTime])) {
                     $xpNow = $decodedStats[$realTime]['xp'];
@@ -78,10 +78,10 @@ class UserApiController extends Controller
                     );
                     $decodedStats = array_replace_recursive($decodedStats, $replacements);
                     User::where('id',$user_id)->update([
-                        'stats' => json_encode($decodedStats)
+                        'stats' => json_encode($decodedStats,JSON_UNESCAPED_UNICODE)
                     ]);
                     $findUser = User::where('id',$user_id)->get();
-                    return response(json_encode($findUser[0]),200);
+                    return response(json_encode($findUser[0],JSON_UNESCAPED_UNICODE),200);
                 }else{
                     $stats = array(
                         $realTime => array(
@@ -90,10 +90,10 @@ class UserApiController extends Controller
                     );
                     $result = array_merge($decodedStats, $stats);
                     User::where('id',$user_id)->update([
-                        'stats' => json_encode($result)
+                        'stats' => json_encode($result,JSON_UNESCAPED_UNICODE)
                     ]);
                     $findUser = User::where('id',$user_id)->get();
-                    return response(json_encode($findUser[0]),200);
+                    return response(json_encode($findUser[0],JSON_UNESCAPED_UNICODE),200);
                 }
             }
         }

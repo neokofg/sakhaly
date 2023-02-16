@@ -26,7 +26,7 @@ class RoomApiController extends Controller
         }
         $room = Room::create([
             'teacher_id' => $teacher_id,
-            'exercise' => json_encode($exercise),
+            'exercise' => json_encode($exercise,JSON_UNESCAPED_UNICODE ),
             'room_code' => $roomCode,
             'status' => 'wait',
             'answers' => $answers
@@ -40,7 +40,7 @@ class RoomApiController extends Controller
                 ]);
             }
         }
-        return response(json_encode($roomUpdate[0]),200);
+        return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE ),200);
     }
     public static function quickRandom($length = 5)
     {
@@ -63,16 +63,21 @@ class RoomApiController extends Controller
         $user_id = $json['user_id'];
         foreach($room as $roomItem){
             $decodedUsers = json_decode($roomItem->users,true);
+            $answersCount = count($roomItem->answers);
             if(in_array(intval($user_id), $decodedUsers['users'])){
                 return response()->json([
                     'error' => 'User already exists!'
                 ], 401);
             }else{
+                $i = 0;
+                $answers = array();
+                while($i == $answersCount){
+                    $answers += [$i.':0'];
+                    $i++;
+                }
                 $userArray = array(
                     $user_id => array(
-                        'answers' => array(
-                            "1" => 0
-                        ),
+                        $answers,
                         'balls' => 0
                     )
                 );
@@ -80,10 +85,10 @@ class RoomApiController extends Controller
             }
         }
         Room::where('room_code',$json['room_code'])->update([
-            'users' => json_encode($decodedUsers)
+            'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE )
         ]);
         $roomUpdate = Room::where('room_code',$json['room_code'])->get();
-        return response(json_encode($roomUpdate[0]),200);
+        return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE ),200);
     }
     protected function leaveRoom($json){
         $json = json_decode($json,true);
@@ -110,8 +115,9 @@ class RoomApiController extends Controller
             }
         }
         Room::where('room_code',$json['room_code'])->update([
-            'users' => json_encode($decodedUsers)
+            'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE )
         ]);
-        return response(json_encode($roomUpdate[0]),200);
+        $roomUpdate = Room::where('room_code',$json['room_code'])->get();
+        return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE ),200);
     }
 }

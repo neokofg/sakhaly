@@ -29,7 +29,7 @@ class GroupsApiController extends Controller
         ]);
         if($group){
             $groupInfo = Group::where('id',$group->id)->get();
-            return response(json_encode($groupInfo[0]),200);
+            return response(json_encode($groupInfo[0],JSON_UNESCAPED_UNICODE),200);
         }
     }
     protected function addUserToGroup($json){
@@ -57,10 +57,10 @@ class GroupsApiController extends Controller
             }
         }
         Group::where('id',$group_id)->update([
-            'users' => json_encode($decodedUsers)
+            'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE)
         ]);
         $groupUpdated = Group::where('id',$group_id)->get();
-        return response(json_encode($groupUpdated[0]),200);
+        return response(json_encode($groupUpdated[0],JSON_UNESCAPED_UNICODE),200);
     }
     protected function deleteUserFromGroup($json){
         $json = json_decode($json,true);
@@ -88,13 +88,13 @@ class GroupsApiController extends Controller
             }
         }
         Group::where('id',$group_id)->update([
-            'users' => json_encode($decodedUsers)
+            'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE)
         ]);
         $groupUpdated = Group::where('id',$group_id)->get();
-        return response(json_encode($groupUpdated[0]),200);
+        return response(json_encode($groupUpdated[0],JSON_UNESCAPED_UNICODE),200);
     }
     protected function getGroups(){
         $user = Group::get();
-        return response(json_encode($user),200);
+        return response(json_encode($user,JSON_UNESCAPED_UNICODE),200);
     }
 }
