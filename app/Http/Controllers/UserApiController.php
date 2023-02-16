@@ -74,12 +74,12 @@ class UserApiController extends Controller
                             $type => $xpNow
                         )
                     );
-                    array_replace_recursive($decodedStats, $replacements);
+                    $decodedStats = array_replace_recursive($decodedStats, $replacements);
                     User::where('id',$user_id)->update([
                         'stats' => json_encode($decodedStats)
                     ]);
                 }else{
-                    
+
                 }
             }
         }
