@@ -21,3 +21,4 @@ Route::get('/login/{json}',[\App\Http\Controllers\AuthApiController::class, 'log
 Route::get('/allUsers',[\App\Http\Controllers\AuthApiController::class,'getAllUsers']);
 Route::get('/updateUser/{json}',[\App\Http\Controllers\AuthApiController::class,'updateUser']);
 
+Route::get('/newGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'newGroup']);
