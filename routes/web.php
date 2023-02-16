@@ -27,3 +27,5 @@ Route::get('/getGroups',[\App\Http\Controllers\GroupsApiController::class, 'getG
 
 Route::get('/updateUser/{json}',[\App\Http\Controllers\UserApiController::class,'updateUser']);
 Route::get('/updateStat/{json}',[\App\Http\Controllers\UserApiController::class,'updateStat']);
+
+Route::get('/createRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'createRoom']);
