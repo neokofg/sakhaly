@@ -62,4 +62,34 @@ class GroupsApiController extends Controller
         $groupUpdated = Group::where('id',$group_id)->get();
         return response(json_encode($groupUpdated[0]),200);
     }
+    protected function deleteUserFromGroup($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'user_id' => 'required|exists:users,id',
+            'group_id' => 'required|exists:groups,id'
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $user_id = $json['user_id'];
+        $group_id = $json['group_id'];
+        $group = Group::where('id',$group_id)->get();
+        foreach($group as $groupItem){
+            $decodedUsers = json_decode($groupItem->users,true);
+            if(in_array(intval($user_id), $decodedUsers['users'])){
+                array_diff($decodedUsers['users'],[intval($user_id)]);
+            }else{
+                return response()->json([
+                    'error' => 'User already exists!'
+                ], 401);
+            }
+        }
+        Group::where('id',$group_id)->update([
+            'users' => json_encode($decodedUsers)
+        ]);
+        $groupUpdated = Group::where('id',$group_id)->get();
+        return response(json_encode($groupUpdated[0]),200);
+    }
 }

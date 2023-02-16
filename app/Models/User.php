@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
         'coins',
         'xp',
-        'level'
+        'level',
+        'stats'
     ];
 
     /**
