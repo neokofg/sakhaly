@@ -93,4 +93,8 @@ class GroupsApiController extends Controller
         $groupUpdated = Group::where('id',$group_id)->get();
         return response(json_encode($groupUpdated[0]),200);
     }
+    protected function getGroups(){
+        $user = Group::get();
+        return response(json_encode($user),200);
+    }
 }

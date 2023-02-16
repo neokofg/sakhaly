@@ -24,3 +24,4 @@ Route::get('/updateUser/{json}',[\App\Http\Controllers\AuthApiController::class,
 Route::get('/newGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'newGroup']);
 Route::get('/addUserToGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'addUserToGroup']);
 Route::get('/deleteUserFromGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'deleteUserFromGroup']);
+Route::get('/getGroups/{json}',[\App\Http\Controllers\GroupsApiController::class, 'getGroups']);
