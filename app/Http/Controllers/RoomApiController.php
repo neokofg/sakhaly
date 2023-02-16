@@ -72,4 +72,32 @@ class RoomApiController extends Controller
             'users' => json_encode($decodedUsers)
         ]);
     }
+    protected function leaveRoom($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'room_code' => 'required|exists:rooms',
+            'user_id' => 'required|exists:users,id'
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $room = Room::where('room_code',$json['room_code'])->get();
+        $user_id = $json['user_id'];
+        foreach($room as $roomItem){
+            $decodedUsers = json_decode($roomItem->users,true);
+            if(in_array(intval($user_id), $decodedUsers['users'])){
+                $key = array_search($user_id, $decodedUsers['users']);
+                unset($decodedUsers['users'][$key]);
+            }else{
+                return response()->json([
+                    'error' => 'User already exists!'
+                ], 401);
+            }
+        }
+        Room::where('room_code',$json['room_code'])->update([
+            'users' => json_encode($decodedUsers)
+        ]);
+    }
 }
