@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('xp')->default(0);
             $table->integer('level')->default(0);
             $table->integer('coins')->default(0);
-            $table->json('stats');
+            $table->json('stats')->default('{}');
             $table->timestamps();
         });
     }
