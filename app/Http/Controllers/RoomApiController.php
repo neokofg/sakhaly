@@ -62,8 +62,12 @@ class RoomApiController extends Controller
         $room = Room::where('room_code',$json['room_code'])->get();
         $user_id = $json['user_id'];
         foreach($room as $roomItem){
+            $answersArray = $roomItem->answers;
+            $answersArray = str_replace('[','',$answersArray);
+            $answersArray = str_replace(']','',$answersArray);
+            $answersArray = explode(',',$answersArray);
             $decodedUsers = json_decode($roomItem->users,true);
-            $answersCount = count($roomItem->answers);
+            $answersCount = count($answersArray);
             if(in_array(intval($user_id), $decodedUsers['users'])){
                 return response()->json([
                     'error' => 'User already exists!'
