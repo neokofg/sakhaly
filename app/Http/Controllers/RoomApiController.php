@@ -126,7 +126,7 @@ class RoomApiController extends Controller
         $roomUpdate = Room::where('room_code',$json['room_code'])->get();
         return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE ),200);
     }
-    function test(){
+    function Test(){
         $json_massive = '{"users":[{"1":{"answers":{"1":0,"2":0,"3":0,"4":0,"5":0},"balls":0}}]}';
         $json_massive = json_decode($json_massive, true);
         print_r($json_massive);
