@@ -68,6 +68,7 @@ class RoomApiController extends Controller
             $answersArray = explode(',',$answersArray);
             $decodedUsers = json_decode($roomItem->users,true);
             $answersCount = count($answersArray);
+            print_r('Всего:'.$answersCount.'Все');
             if(in_array(intval($user_id), $decodedUsers['users'])){
                 return response()->json([
                     'error' => 'User already exists!'
@@ -79,6 +80,7 @@ class RoomApiController extends Controller
                     $answers += [$i.':0'];
                     $i++;
                 }
+                print_r('Всегаво:'.$answers.'Всеыав');
                 $userArray = array(
                     $user_id => array(
                         'answers' => $answers,
