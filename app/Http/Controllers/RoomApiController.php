@@ -133,5 +133,10 @@ class RoomApiController extends Controller
         $json_massive = $json_massive['users'];
         $json_massive = $json_massive[0];
         print_r($json_massive);
+        if(in_array(strval(1), $json_massive)){
+            print_r('Нашел!');
+        }else {
+            print_r('!Нашел');
+        }
     }
 }
