@@ -48,7 +48,7 @@ class GroupsApiController extends Controller
         $group = Group::where('id',$group_id)->get();
         foreach($group as $groupItem){
             $decodedUsers = json_decode($groupItem->users,true);
-            $decodedUsers = array_push($decodedUsers['users'],intval($user_id));
+            array_push($decodedUsers['users'],intval($user_id));
         }
         Group::where('id',$group_id)->update([
             'users' => json_encode($decodedUsers)
