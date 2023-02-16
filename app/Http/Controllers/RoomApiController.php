@@ -24,7 +24,7 @@ class RoomApiController extends Controller
         }
         $room = Room::create([
             'teacher_id' => $teacher_id,
-            'exercise' => $exercise,
+            'exercise' => json_encode($exercise),
             'room_code' => $roomCode,
             'status' => 'wait'
         ]);
