@@ -52,14 +52,14 @@ class UserApiController extends Controller
         }
         $user_id = $json['user_id'];
         $realTime = Carbon::today();
-        print_r($realTime);
+        print($realTime);
         $user = User::where('id',$user_id)->get();
         foreach($user as $userItem){
             $decodedStats = json_decode($userItem->stats,true);
 //            if (!isset($decodedStats[$realTime])) {
 //                print_r($decodedStats);
 //            }
-            print_r($decodedStats);
+            print($decodedStats);
         }
     }
 }
