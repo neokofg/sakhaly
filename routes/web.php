@@ -29,3 +29,5 @@ Route::get('/updateUser/{json}',[\App\Http\Controllers\UserApiController::class,
 Route::get('/updateStat/{json}',[\App\Http\Controllers\UserApiController::class,'updateStat']);
 
 Route::get('/createRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'createRoom']);
+Route::get('/joinRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'joinRoom']);
+

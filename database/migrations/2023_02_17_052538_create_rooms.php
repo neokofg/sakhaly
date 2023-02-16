@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('status');
             $table->foreignId('teacher_id')->references('id')->on('users');
-            $table->json('users')->default('{}');
+            $table->json('users')->default('{"users":[]}');
             $table->json('exercise');
             $table->string('room_code');
             $table->timestamps();
