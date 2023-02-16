@@ -79,7 +79,15 @@ class UserApiController extends Controller
                         'stats' => json_encode($decodedStats)
                     ]);
                 }else{
-
+                    $stats = array(
+                        $realTime => array(
+                            $type => $amount
+                        )
+                    );
+                    $result = array_merge($decodedStats, $stats);
+                    User::where('id',$user_id)->update([
+                        'stats' => json_encode($result)
+                    ]);
                 }
             }
         }
