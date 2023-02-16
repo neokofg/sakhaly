@@ -19,9 +19,11 @@ Route::get('/', function () {
 Route::get('/user/{json}',[\App\Http\Controllers\AuthApiController::class, 'registerUser']);
 Route::get('/login/{json}',[\App\Http\Controllers\AuthApiController::class, 'loginUser']);
 Route::get('/allUsers',[\App\Http\Controllers\AuthApiController::class,'getAllUsers']);
-Route::get('/updateUser/{json}',[\App\Http\Controllers\AuthApiController::class,'updateUser']);
 
 Route::get('/newGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'newGroup']);
 Route::get('/addUserToGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'addUserToGroup']);
 Route::get('/deleteUserFromGroup/{json}',[\App\Http\Controllers\GroupsApiController::class, 'deleteUserFromGroup']);
 Route::get('/getGroups',[\App\Http\Controllers\GroupsApiController::class, 'getGroups']);
+
+Route::get('/updateUser/{json}',[\App\Http\Controllers\UserApiController::class,'updateUser']);
+Route::get('/updateStat/{json}',[\App\Http\Controllers\UserApiController::class,'updateStat']);
