@@ -130,6 +130,8 @@ class RoomApiController extends Controller
     function Test(){
         $json_massive = '{"users":[{"1":{"answers":{"1":0,"2":0,"3":0,"4":0,"5":0},"balls":0}}]}';
         $json_massive = json_decode($json_massive, true);
+        $json_massive = $json_massive['users'];
+        $json_massive = $json_massive[0];
         print_r($json_massive);
     }
 }
