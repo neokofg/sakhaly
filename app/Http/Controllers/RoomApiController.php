@@ -95,12 +95,16 @@ class RoomApiController extends Controller
                         $i++;
                     }
                     print_r($answers);
-                    $userArray = array(
-                        $user_id => array(
-                            'answers' => $answers,
-                            'balls' => 0
+                    $user = User::where('id',$user_id)->get();
+                    foreach($user as $userItem){
+                        $userArray = array(
+                            $user_id => array(
+                                'answers' => $answers,
+                                'balls' => 0,
+                                'name' => $userItem->name
                         )
-                    );
+                        );
+                    }
                     array_push($decodedUsers['users'],$userArray);
                 }
             }
