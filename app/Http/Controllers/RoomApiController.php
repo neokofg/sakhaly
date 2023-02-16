@@ -152,4 +152,18 @@ class RoomApiController extends Controller
             print_r('!Нашел');
         }
     }
+    protected function getRoom($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'room_code' => 'required|exists:rooms',
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $roomCode = $json['room_code'];
+        $room = Room::where('room_code',$roomCode)->get();
+        return response(json_encode($room,JSON_UNESCAPED_UNICODE),200);
+    }
 }
