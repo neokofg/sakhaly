@@ -178,6 +178,6 @@ class RoomApiController extends Controller
         }
         $roomCode = $json['room_code'];
         $room = Room::where('room_code',$roomCode)->get();
-        return response(json_encode($room,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
+        return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
     }
 }
