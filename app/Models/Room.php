@@ -13,6 +13,7 @@ class Room extends Model
         'status',
         'users',
         'exercise',
-        'room_code'
+        'room_code',
+        'answers'
     ];
 }

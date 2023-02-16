@@ -12,10 +12,12 @@ class RoomApiController extends Controller
         $json = json_decode($json,true);
         $validateFields = Validator::make($json, [
             'teacher_id' => 'required|exists:users,id',
-            'exercise' => 'required'
+            'exercise' => 'required',
+            'answers' => 'required'
         ]);
         $teacher_id = $json['teacher_id'];
         $exercise = $json['exercise'];
+        $answers = $json['answers'];
         $roomCode = self::quickRandom();
         if ($validateFields->fails()) {
             return response()->json([
@@ -26,7 +28,8 @@ class RoomApiController extends Controller
             'teacher_id' => $teacher_id,
             'exercise' => json_encode($exercise),
             'room_code' => $roomCode,
-            'status' => 'wait'
+            'status' => 'wait',
+            'answers' => $answers
         ]);
         $roomUpdate = Room::where('id', $room->id)->get();
         foreach($roomUpdate as $roomItem){
