@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -63,9 +62,24 @@ class UserApiController extends Controller
                     $type => $amount
                   )
                 );
-                print_r($stats);
+                User::where('id',$user_id)->update([
+                   'stats' => json_encode($stats)
+                ]);
             }else{
-                if (!isset($decodedStats[$realTime])) {
+                if (isset($decodedStats[$realTime])) {
+                    $xpNow = $decodedStats[$realTime]['xp'];
+                    $xpNow = intval($xpNow) + intval($amount);
+                    $replacements = array(
+                        $realTime => array(
+                            $type => $xpNow
+                        )
+                    );
+                    array_replace_recursive($decodedStats, $replacements);
+                    User::where('id',$user_id)->update([
+                        'stats' => json_encode($decodedStats)
+                    ]);
+                }else{
+                    
                 }
             }
         }
