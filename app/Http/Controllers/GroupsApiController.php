@@ -79,10 +79,11 @@ class GroupsApiController extends Controller
         foreach($group as $groupItem){
             $decodedUsers = json_decode($groupItem->users,true);
             if(in_array(intval($user_id), $decodedUsers['users'])){
-                array_diff($decodedUsers['users'],[intval($user_id)]);
+                $key = array_search($user_id, $decodedUsers['users']);
+                unset($decodedUsers['users'][$key]);
             }else{
                 return response()->json([
-                    'error' => 'User already exists!'
+                    'error' => 'User didn"t exists!'
                 ], 401);
             }
         }
