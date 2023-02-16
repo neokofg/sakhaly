@@ -76,7 +76,7 @@ class RoomApiController extends Controller
                 $i = 0;
                 $answers = array();
                 while($i == $answersCount){
-                    $answers = array_merge($answers,[$i => 0]);
+                    $answers += [$i => 0];
                     $i++;
                 }
                 print_r($answers);
