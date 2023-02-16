@@ -86,7 +86,7 @@ class RoomApiController extends Controller
                         'balls' => 0
                     )
                 );
-                array_push($decodedUsers['users'],$userArray);
+                array_push($decodedUsers['users'],$userArray[0]);
             }
         }
         Room::where('room_code',$json['room_code'])->update([
