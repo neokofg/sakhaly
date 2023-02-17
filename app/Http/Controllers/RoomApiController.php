@@ -111,10 +111,11 @@ class RoomApiController extends Controller
                                 'answers' => $answers,
                                 'balls' => 0,
                                 'name' => $userItem->nick
-                        )
+                            )
                         );
                     }
-                    array_push($decodedUsers['users'],$userArray);
+                    $result = $decodedUsers['users'] + $userArray;
+                    array_push($decodedUsers,$result);
                 }
             }
         }
