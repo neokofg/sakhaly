@@ -82,12 +82,16 @@ class RoomApiController extends Controller
                         $answers += [strval($i) => 0];
                         $i++;
                     }
-                    $decodedUsers['users'] = array(
-                        strval($user_id) => array(
-                            'answers' => $answers,
-                            'balls' => 0
-                        )
-                    );
+                    $user = User::where('id',$user_id)->get();
+                    foreach($user as $userItem){
+                        $decodedUsers['users'] = array(
+                            strval($user_id) => array(
+                                'answers' => $answers,
+                                'balls' => 0,
+                                'name' => $userItem->nick
+                            )
+                        );
+                    }
                 }else{
                     if(array_key_exists(strval($user_id), $decodedUsers['users'])){
                         return response()->json([
