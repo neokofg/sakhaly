@@ -34,5 +34,6 @@ Route::get('/leaveRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'
 Route::get('/getRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'getRoom']);
 Route::get('/startRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'startRoom']);
 Route::get('/userAnswer/{json}',[\App\Http\Controllers\RoomApiController::class,'userAnswer']);
+Route::get('/finishRoom/{json}',[\App\Http\Controllers\RoomApiController::class,'finishRoom']);
 
 Route::get('/test',[\App\Http\Controllers\RoomApiController::class,'Test']);

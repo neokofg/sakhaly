@@ -244,6 +244,11 @@ class RoomApiController extends Controller
         $key = $json['key'];
         $room = Room::where('room_code',$roomCode)->get();
         foreach($room as $roomItem){
+            if($roomItem->status == 'finished'){
+                return response()->json([
+                    'error' => 'Round has already finished!'
+                ], 401);
+            }
             $decodedUsers = json_decode($roomItem->users,true);
             $decodedUsers['users'][$user_id]['answers'][$key] = $answer;
             $answers = json_decode($roomItem->answers);
@@ -254,6 +259,23 @@ class RoomApiController extends Controller
         }
         Room::where('room_code',$roomCode)->update([
             'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
+        ]);
+        $room = Room::where('room_code',$roomCode)->get();
+        return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
+    }
+    protected function finishRoom($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'room_code' => 'required|exists:rooms'
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $roomCode = $json['room_code'];
+        Room::where('room_code',$roomCode)->update([
+            'status' => 'finished'
         ]);
         $room = Room::where('room_code',$roomCode)->get();
         return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
