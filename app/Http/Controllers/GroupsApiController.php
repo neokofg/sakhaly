@@ -97,4 +97,18 @@ class GroupsApiController extends Controller
         $user = Group::get();
         return response(json_encode($user,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
     }
+    protected function getGroup($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'teacher_id' => 'required|exists:users,id',
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $teacher_id = $json['teacher_id'];
+        $group = Group::where('teacher_id',$teacher_id)->get();
+        return response(json_encode($group[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
+    }
 }
