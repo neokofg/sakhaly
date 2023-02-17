@@ -64,6 +64,11 @@ class RoomApiController extends Controller
         $room = Room::where('room_code',$json['room_code'])->get();
         $user_id = $json['user_id'];
         foreach($room as $roomItem){
+            if($roomItem->status !== 'wait'){
+                return response()->json([
+                    'error' => 'Round has already started!'
+                ], 401);
+            }
             $answersArray = $roomItem->answers;
             $answersArray = str_replace('[','',$answersArray);
             $answersArray = str_replace(']','',$answersArray);
@@ -195,6 +200,23 @@ class RoomApiController extends Controller
             ], 401);
         }
         $roomCode = $json['room_code'];
+        $room = Room::where('room_code',$roomCode)->get();
+        return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
+    }
+    protected function startRoom($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'room_code' => 'required|exists:rooms',
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $roomCode = $json['room_code'];
+        Room::where('room_code',$roomCode)->update([
+            'status' => 'started'
+        ]);
         $room = Room::where('room_code',$roomCode)->get();
         return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
     }
