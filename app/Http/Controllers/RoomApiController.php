@@ -108,9 +108,9 @@ class RoomApiController extends Controller
                             'error' => 'User already exists!'
                         ], 401);
                     }
-                    $i = 1;
+                    $i = 0;
                     $answers = array();
-                    while($i <= $answersCount){
+                    while($i <= $answersCount-1){
                         $answers += [strval($i) => 0];
                         $i++;
                     }
