@@ -241,6 +241,8 @@ class RoomApiController extends Controller
         foreach($room as $roomItem){
             $decodedUsers = json_decode($roomItem->users,true);
             $decodedUsers['users'][$user_id]['answers'][$key] = $answer;
+            $answers = json_decode($roomItem->answers);
+            print_r($answers);
         }
         Room::where('room_code',$roomCode)->update([
             'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
