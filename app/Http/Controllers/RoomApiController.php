@@ -220,4 +220,32 @@ class RoomApiController extends Controller
         $room = Room::where('room_code',$roomCode)->get();
         return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
     }
+    protected function userAnswer($json){
+        $json = json_decode($json,true);
+        $validateFields = Validator::make($json, [
+            'room_code' => 'required|exists:rooms',
+            'user_id' => 'required|exists:users,id',
+            'key' => 'required',
+            'answer' => 'required'
+        ]);
+        if ($validateFields->fails()) {
+            return response()->json([
+                'error' => $validateFields->errors()
+            ], 401);
+        }
+        $roomCode = $json['room_code'];
+        $user_id = $json['user_id'];
+        $answer = $json['answer'];
+        $key = $json['key'];
+        $room = Room::where('room_code',$roomCode)->get();
+        foreach($room as $roomItem){
+            $decodedUsers = json_decode($roomItem->users,true);
+            $decodedUsers['users'][$user_id]['answers'][$key] = $answer;
+        }
+        Room::where('room_code',$roomCode)->update([
+            'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
+        ]);
+        $room = Room::where('room_code',$roomCode)->get();
+        return response(json_encode($room[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES),200);
+    }
 }
