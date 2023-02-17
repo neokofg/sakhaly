@@ -251,7 +251,7 @@ class RoomApiController extends Controller
                     'error' => 'Answer"s type is not valid'
                 ], 401);
             }
-            print_r($answers[0]);
+            print_r($answers[$key]);
             if($answers[$key] !== $answer){
                 $decodedUsers['users'][$user_id]['balls'] = $decodedUsers['users'][$user_id]['balls'] + 5;
             }
