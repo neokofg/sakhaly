@@ -92,6 +92,11 @@ class RoomApiController extends Controller
                             )
                         );
                     }
+                    Room::where('room_code',$json['room_code'])->update([
+                        'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES )
+                    ]);
+                    $roomUpdate = Room::where('room_code',$json['room_code'])->get();
+                    return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES ),200);
                 }else{
                     if(array_key_exists(strval($user_id), $decodedUsers['users'])){
                         return response()->json([
@@ -119,14 +124,14 @@ class RoomApiController extends Controller
                         'users' => '{}'
                     );
                     array_push($newArray['users'],$result);
+                    Room::where('room_code',$json['room_code'])->update([
+                        'users' => json_encode($newArray,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES )
+                    ]);
+                    $roomUpdate = Room::where('room_code',$json['room_code'])->get();
+                    return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES ),200);
                 }
             }
         }
-        Room::where('room_code',$json['room_code'])->update([
-            'users' => json_encode($newArray,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES )
-        ]);
-        $roomUpdate = Room::where('room_code',$json['room_code'])->get();
-        return response(json_encode($roomUpdate[0],JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES ),200);
     }
     protected function leaveRoom($json){
         $json = json_decode($json,true);
