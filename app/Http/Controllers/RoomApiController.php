@@ -69,11 +69,6 @@ class RoomApiController extends Controller
                     'error' => 'Round has already started!'
                 ], 401);
             }
-            if($roomItem->teacher_id == $user_id){
-                return response()->json([
-                    'error' => 'You can"t participate in your match!'
-                ], 401);
-            }
             $answersArray = $roomItem->answers;
             $answersArray = str_replace('[','',$answersArray);
             $answersArray = str_replace(']','',$answersArray);
