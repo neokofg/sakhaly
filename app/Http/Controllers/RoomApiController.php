@@ -121,7 +121,7 @@ class RoomApiController extends Controller
                     }
                     $result = $decodedUsers['users'] + $userArray;
                     $newArray = array(
-                        'users' => '{}'
+                        'users' => array()
                     );
                     array_push($newArray['users'],$result);
                     Room::where('room_code',$json['room_code'])->update([
