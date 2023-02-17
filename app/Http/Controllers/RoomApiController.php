@@ -242,7 +242,18 @@ class RoomApiController extends Controller
             $decodedUsers = json_decode($roomItem->users,true);
             $decodedUsers['users'][$user_id]['answers'][$key] = $answer;
             $answers = json_decode($roomItem->answers);
-            print_r($answers);
+            if($answer == 1){
+                $answer = null;
+            }elseif($answer == 2){
+                $answer = 1;
+            }else{
+                return response()->json([
+                    'error' => 'Answer"s type is not valid'
+                ], 401);
+            }
+            if($answers['key'] == $answer){
+                $decodedUsers['users'][$user_id]['balls'] = $decodedUsers['users'][$user_id]['balls'] + 5;
+            }
         }
         Room::where('room_code',$roomCode)->update([
             'users' => json_encode($decodedUsers,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)
