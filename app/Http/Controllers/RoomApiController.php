@@ -109,10 +109,8 @@ class RoomApiController extends Controller
                         ], 401);
                     }
                     $i = 1;
-                    $answers = array(
-                        "0" => 0
-                    );
-                    while($i <= $answersCount - 1){
+                    $answers = array();
+                    while($i <= $answersCount){
                         $answers += [strval($i) => 0];
                         $i++;
                     }
