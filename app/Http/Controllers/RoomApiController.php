@@ -242,7 +242,6 @@ class RoomApiController extends Controller
             $decodedUsers = json_decode($roomItem->users,true);
             $decodedUsers['users'][$user_id]['answers'][$key] = $answer;
             $answers = json_decode($roomItem->answers);
-            print_r($answers[$key]);
             if($answers[$key-1] == $answer){
                 $decodedUsers['users'][$user_id]['balls'] = $decodedUsers['users'][$user_id]['balls'] + 5;
             }
