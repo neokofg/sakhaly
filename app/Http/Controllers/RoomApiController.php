@@ -89,6 +89,11 @@ class RoomApiController extends Controller
                         )
                     );
                 }else{
+                    if(array_key_exists(strval($user_id), $decodedUsers['users'])){
+                        return response()->json([
+                            'error' => 'User already exists!'
+                        ], 401);
+                    }
                     $i = 1;
                     $answers = array();
                     while($i <= $answersCount){
